@@ -12,7 +12,7 @@
   --color-ink-muted: #6c757d;
   --color-accent: #c8956c;
   --color-accent-hover: #b07d55;
-  --font-heading: "Playfair Display", Georgia, serif;
+  --font-heading: "Outfit", -apple-system, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --radius: 8px;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -606,6 +606,7 @@ address {
   font-size: 1.05rem;
   line-height: 1.8;
   margin: 0 0 1.5rem;
+  padding-top: 1.5rem;
   color: var(--color-ink);
   position: relative;
   quotes: none;
@@ -615,12 +616,12 @@ address {
   content: "\201C";
   font-size: 4rem;
   color: var(--color-accent);
-  opacity: 0.3;
+  opacity: 0.4;
   position: absolute;
-  top: -10px;
+  top: -0.35em;
   left: -5px;
   line-height: 1;
-  font-family: var(--font-heading);
+  font-family: Georgia, serif;
 }
 
 .testimonial-card footer {
