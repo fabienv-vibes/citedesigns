@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fabienv-vibes.github.io/citedesigns/sitemap.xml
