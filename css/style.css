@@ -331,7 +331,9 @@ img {
     background-attachment: scroll;
   }
 
-  .adus {
+  .adus,
+  .services,
+  .testimonials {
     background-attachment: scroll;
   }
 
@@ -364,7 +366,29 @@ img {
    ----------------------------------------------------------------------------- */
 
 .services {
-  background: var(--color-white);
+  position: relative;
+  background-image: url('../images/services-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.services::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+
+.services > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.services h2,
+.services .section-subtitle {
+  color: var(--color-white);
 }
 
 .services-grid {
@@ -694,7 +718,29 @@ address {
    ----------------------------------------------------------------------------- */
 
 .testimonials {
-  background: var(--color-offwhite);
+  position: relative;
+  background-image: url('../images/testimonials-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.testimonials::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+
+.testimonials > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.testimonials h2,
+.testimonials .section-subtitle {
+  color: var(--color-white);
 }
 
 .testimonial-carousel {
