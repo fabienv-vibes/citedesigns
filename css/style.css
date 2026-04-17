@@ -331,6 +331,10 @@ img {
     background-attachment: scroll;
   }
 
+  .adus {
+    background-attachment: scroll;
+  }
+
   .hero h1 {
     font-size: 3rem;
   }
@@ -455,7 +459,32 @@ address {
    ----------------------------------------------------------------------------- */
 
 .adus {
-  background: var(--color-offwhite);
+  position: relative;
+  background-image: url('../images/adus-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--color-white);
+}
+
+.adus::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+
+.adus > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.adus h2,
+.adus .section-subtitle,
+.adus-content,
+.adus-content h3 {
+  color: var(--color-white);
 }
 
 .adus-content {
@@ -464,7 +493,6 @@ address {
 }
 
 .adus-content h3 {
-  color: var(--color-accent);
   margin-top: 2rem;
 }
 
