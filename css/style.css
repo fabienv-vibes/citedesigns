@@ -491,17 +491,34 @@ address {
   overflow: hidden;
   border-radius: var(--radius);
   aspect-ratio: 4 / 3;
+  background: var(--color-light-gray);
 }
 
-.work-card img {
+.work-card-images {
+  position: absolute;
+  inset: 0;
+}
+
+.work-card-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.work-card-image.active {
+  opacity: 1;
+}
+
+.work-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
-.work-card:hover img {
-  transform: scale(1.05);
+.work-card:hover .work-card-image.active img {
+  transform: scale(1.04);
 }
 
 .work-card-overlay {
@@ -510,8 +527,11 @@ address {
   left: 0;
   right: 0;
   padding: 1.5rem;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding-bottom: 2.25rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
   color: var(--color-white);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .work-card-overlay h3 {
@@ -521,8 +541,81 @@ address {
 
 .work-card-overlay p {
   font-size: 0.85rem;
-  opacity: 0.85;
+  opacity: 0.9;
   margin: 0;
+}
+
+.work-card-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  z-index: 3;
+  padding: 0;
+}
+
+.work-card-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.work-card-arrow.prev { left: 0.5rem; }
+.work-card-arrow.next { right: 0.5rem; }
+
+.work-card:hover .work-card-arrow,
+.work-card:focus-within .work-card-arrow {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .work-card-arrow { opacity: 1; }
+}
+
+.work-card-dots {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+
+.work-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.work-card-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.work-card-dot.active {
+  background: var(--color-white);
+  transform: scale(1.2);
+}
+
+.work-card-single .work-card-arrow,
+.work-card-single .work-card-dots {
+  display: none;
 }
 
 .work-cta {

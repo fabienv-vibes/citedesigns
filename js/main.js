@@ -195,50 +195,73 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------------------------------
-     7. Lightbox (work gallery)
+     7. Per-project work card carousels (auto-rotate, click, pause on hover)
      --------------------------------------------------------------------------- */
-  const lightbox = document.querySelector(".lightbox-overlay");
-  const lightboxImg = lightbox?.querySelector("img");
-  const lightboxClose = lightbox?.querySelector(".lightbox-close");
-  const galleryItems = document.querySelectorAll(".gallery-item");
+  const workCards = document.querySelectorAll(".work-card");
+  workCards.forEach((card, cardIdx) => {
+    const images = card.querySelectorAll(".work-card-image");
+    const total = images.length;
+    if (total <= 1) {
+      card.classList.add("work-card-single");
+      return;
+    }
+    const dots = card.querySelectorAll(".work-card-dot");
+    const prevBtn = card.querySelector(".work-card-arrow.prev");
+    const nextBtn = card.querySelector(".work-card-arrow.next");
+    let index = 0;
+    let timer = null;
+    const interval = 5000 + cardIdx * 600;
 
-  function openLightbox(src, alt) {
-    if (!lightbox || !lightboxImg) return;
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || "";
-    lightbox.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
+    function update() {
+      images.forEach((img, i) => img.classList.toggle("active", i === index));
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+        dot.setAttribute("aria-current", i === index ? "true" : "false");
+      });
+    }
 
-  function closeLightbox() {
-    if (!lightbox || !lightboxImg) return;
-    lightbox.classList.remove("active");
-    lightboxImg.src = "";
-    document.body.style.overflow = "";
-  }
+    function advance(delta) {
+      index = (index + delta + total) % total;
+      update();
+    }
 
-  galleryItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      const img = item.querySelector("img");
-      if (!img || !img.src) return;
-      openLightbox(img.src, img.getAttribute("alt") || "");
+    function start() {
+      stop();
+      timer = window.setInterval(() => advance(1), interval);
+    }
+
+    function stop() {
+      if (timer !== null) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    prevBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      advance(-1);
+      start();
     });
-  });
+    nextBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      advance(1);
+      start();
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        index = i;
+        update();
+        start();
+      });
+    });
 
-  lightbox?.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
+    card.addEventListener("mouseenter", stop);
+    card.addEventListener("mouseleave", start);
+    card.addEventListener("focusin", stop);
+    card.addEventListener("focusout", start);
 
-  lightboxClose?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    closeLightbox();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lightbox?.classList.contains("active")) {
-      closeLightbox();
-    }
+    update();
+    start();
   });
 });
