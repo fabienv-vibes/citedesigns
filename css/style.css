@@ -279,6 +279,11 @@ img {
   z-index: 1;
   color: var(--color-white);
   padding: 0 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
 }
 
 .hero h1 {
@@ -342,7 +347,8 @@ img {
   }
 
   .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    letter-spacing: 2px;
   }
 }
 
@@ -813,11 +819,11 @@ address {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--color-charcoal);
+  border: 2px solid var(--color-white);
   background: transparent;
   cursor: pointer;
   font-size: 1.2rem;
-  color: var(--color-charcoal);
+  color: var(--color-white);
   transition: background var(--transition), color var(--transition);
   display: inline-flex;
   align-items: center;
@@ -825,8 +831,8 @@ address {
 }
 
 .testimonial-nav button:hover:not(:disabled) {
-  background: var(--color-charcoal);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-charcoal);
 }
 
 .testimonial-nav button:disabled {
@@ -845,7 +851,7 @@ address {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-light-gray);
+  background: rgba(255, 255, 255, 0.4);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -853,7 +859,7 @@ address {
 }
 
 .testimonial-dot.active {
-  background: var(--color-accent);
+  background: var(--color-white);
 }
 
 /* -----------------------------------------------------------------------------
