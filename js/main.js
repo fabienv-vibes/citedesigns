@@ -296,6 +296,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    const servicesGrid = document.querySelector(".services-grid");
+    const servicePanelsContainer = document.querySelector(".service-panels");
+
+    function placePanelForCard(card, panel) {
+      if (!panel) return;
+      const isSingleColumn = window.matchMedia("(max-width: 599px)").matches;
+      if (isSingleColumn && servicesGrid) {
+        if (card.nextElementSibling !== panel) {
+          servicesGrid.insertBefore(panel, card.nextElementSibling);
+        }
+      } else if (servicePanelsContainer) {
+        if (panel.parentNode !== servicePanelsContainer) {
+          servicePanelsContainer.appendChild(panel);
+        }
+      }
+    }
+
     function openPanel(card) {
       cardStates.forEach((s) => {
         if (s.card !== card && s.card.getAttribute("aria-expanded") === "true") {
@@ -305,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const panelId = card.getAttribute("aria-controls");
       const panel = panelId ? document.getElementById(panelId) : null;
       card.setAttribute("aria-expanded", "true");
+      placePanelForCard(card, panel);
       if (panel) panel.hidden = false;
       const state = cardStates.find((s) => s.card === card);
       if (state) {
@@ -312,11 +330,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (state.stop) state.stop();
       }
       if (panel) {
-        const isSingleColumn = window.matchMedia("(max-width: 599px)").matches;
         const panelRect = panel.getBoundingClientRect();
         const viewportH = window.innerHeight;
-        const offScreen = panelRect.top > viewportH * 0.8 || panelRect.bottom < 0;
-        if (isSingleColumn || offScreen) {
+        const offScreen = panelRect.top > viewportH * 0.85 || panelRect.bottom < 0;
+        if (offScreen) {
           window.setTimeout(() => {
             panel.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 60);
