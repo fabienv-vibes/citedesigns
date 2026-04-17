@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260406">
 
   <script type="application/ld+json">
   {
@@ -83,47 +83,107 @@
     <section id="services" class="section services" aria-labelledby="services-heading">
       <div class="container">
         <h2 id="services-heading">Services</h2>
-        <p class="section-subtitle">One-stop shop design services</p>
+        <p class="section-subtitle">One-stop shop design services. Click any service to learn more.</p>
         <div class="services-grid">
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9874;</span>
-            <h3>Architectural Design</h3>
+
+          <button class="service-card" type="button" aria-expanded="false" aria-controls="svc-panel-architecture" data-service="architecture" data-images='["images/work/hidden-spring/1.jpg","images/work/hidden-spring/2.jpg","images/work/hidden-spring/3.jpg","images/work/hidden-spring/4.jpg","images/work/marion-sb9/1.jpg","images/work/marion-sb9/2.jpg","images/work/warren/1.jpg","images/work/warren/2.jpg"]' data-alt="Architectural design project photo">
+            <div class="service-card-images" aria-hidden="true"></div>
+            <div class="service-card-overlay">
+              <span class="service-icon" aria-hidden="true">&#9874;</span>
+              <h3>Architectural Design</h3>
+              <span class="service-card-chevron" aria-hidden="true"></span>
+            </div>
+          </button>
+
+          <button class="service-card" type="button" aria-expanded="false" aria-controls="svc-panel-interiors" data-service="interiors" data-images='["images/work/interiors/1.jpg","images/work/interiors/2.jpg","images/work/interiors/3.jpg","images/work/interiors/4.jpg","images/work/elm-kitchen/1.jpg","images/work/elm-kitchen/2.jpg","images/work/elm-kitchen/3.jpg","images/work/elm-kitchen/4.jpg","images/work/elm-kitchen/5.jpg","images/work/kitchen-remodel/1.jpg","images/work/kitchen-remodel/2.jpg","images/work/kitchen-remodel/3.jpg"]' data-alt="Interior design project photo">
+            <div class="service-card-images" aria-hidden="true"></div>
+            <div class="service-card-overlay">
+              <span class="service-icon" aria-hidden="true">&#9634;</span>
+              <h3>Interiors</h3>
+              <span class="service-card-chevron" aria-hidden="true"></span>
+            </div>
+          </button>
+
+          <button class="service-card" type="button" aria-expanded="false" aria-controls="svc-panel-adus" data-service="adus" data-images='["images/work/california-adu/1.jpg","images/work/california-adu/2.jpg","images/work/california-adu/3.jpg"]' data-alt="ADU project photo">
+            <div class="service-card-images" aria-hidden="true"></div>
+            <div class="service-card-overlay">
+              <span class="service-icon" aria-hidden="true">&#8965;</span>
+              <h3>ADUs</h3>
+              <span class="service-card-chevron" aria-hidden="true"></span>
+            </div>
+          </button>
+
+          <button class="service-card" type="button" aria-expanded="false" aria-controls="svc-panel-visualization" data-service="visualization" data-images='["images/work/hidden-spring/1.jpg","images/work/marion-sb9/1.jpg","images/work/warren/1.jpg","images/work/california-adu/1.jpg","images/work/elm-kitchen/1.jpg"]' data-alt="3D rendering of an architectural project">
+            <div class="service-card-images" aria-hidden="true"></div>
+            <div class="service-card-overlay">
+              <span class="service-icon" aria-hidden="true">&#9635;</span>
+              <h3>Visualization</h3>
+              <span class="service-card-chevron" aria-hidden="true"></span>
+            </div>
+          </button>
+
+          <!-- TODO: replace engineering placeholder images with the dedicated engineering photos once supplied -->
+          <button class="service-card" type="button" aria-expanded="false" aria-controls="svc-panel-engineering" data-service="engineering" data-images='["images/services/engineering/placeholder-1.jpg","images/services/engineering/placeholder-2.jpg","images/services/engineering/placeholder-3.jpg"]' data-alt="Engineering coordination on an architectural project">
+            <div class="service-card-images" aria-hidden="true"></div>
+            <div class="service-card-overlay">
+              <span class="service-icon" aria-hidden="true">&#9881;</span>
+              <h3>Engineering</h3>
+              <span class="service-card-chevron" aria-hidden="true"></span>
+            </div>
+          </button>
+
+        </div>
+
+        <div class="service-panels">
+          <div id="svc-panel-architecture" class="service-panel" hidden>
+            <p>Full-service architectural design for new construction, additions, and remodels. We take projects from the first concept sketches through permit-ready construction drawings, working closely with structural engineers and systems consultants along the way so the design you love is also the design that gets built.</p>
+            <ul>
+              <li>Residential: single-family, multi-family, mixed use</li>
+              <li>Custom modern and Mediterranean-style homes</li>
+              <li>Additions, remodels, and whole-house reconfigurations</li>
+              <li>Bidding sets, construction drawings, and permit applications</li>
+              <li>Collaboration with contractors and engineers throughout</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9634;</span>
-            <h3>Interiors</h3>
+          <div id="svc-panel-interiors" class="service-panel" hidden>
+            <p>Interior design and remodel services that rethink how you live in your space. Kitchen and bath remodels, full-floor reconfigurations, and everything in between. We focus on flow, light, and material palettes that feel timeless and age well.</p>
+            <ul>
+              <li>Kitchen and bath remodels</li>
+              <li>Whole-interior reconfigurations and finishes</li>
+              <li>Lighting, millwork, and custom built-ins</li>
+              <li>MEP coordination (mechanical, electrical, plumbing)</li>
+              <li>3D visualization of interior spaces before construction</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9635;</span>
-            <h3>Visualization &mdash; 3D Modeling &amp; Renderings</h3>
+          <div id="svc-panel-adus" class="service-panel" hidden>
+            <p>California's housing laws have made ADUs easier than ever to permit and build. We handle attached, detached, and garage conversion ADUs, from feasibility study through building permit, with designs tuned to your lot, your budget, and how you plan to use the space.</p>
+            <ul>
+              <li>Attached, detached, and junior ADUs (JADUs)</li>
+              <li>Garage and accessory structure conversions</li>
+              <li>Zoning analysis and expedited permit pathways</li>
+              <li>Designs optimized for rental income or multigenerational use</li>
+              <li>Coordination with local jurisdictions across the Bay Area</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#8862;</span>
-            <h3>Master Planning &amp; Urban Design</h3>
+          <div id="svc-panel-visualization" class="service-panel" hidden>
+            <p>Visualization isn't a costly add-on at Cit&eacute; Designs. It's baked into how we work. Using SketchUp and Layout, we build your project as a 3D model from day one, so you can walk through your home and see every material and sightline before the first wall goes up.</p>
+            <ul>
+              <li>Photorealistic exterior and interior renderings</li>
+              <li>Walkthroughs and animations for presentations</li>
+              <li>Real-time design changes reflected across all views</li>
+              <li>Material, lighting, and furniture studies</li>
+              <li>Shared 3D models for contractors and engineers</li>
+            </ul>
           </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#10022;</span>
-            <h3>Custom Designs</h3>
-          </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#8635;</span>
-            <h3>Remodeling &amp; Additions</h3>
-          </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#8965;</span>
-            <h3>Additional Dwelling Units (ADUs)</h3>
-          </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9998;</span>
-            <h3>Permit Applications</h3>
-          </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9632;</span>
-            <h3>Bidding Sets &amp; Construction Drawings</h3>
-          </div>
-          <div class="service-card">
-            <span class="service-icon" aria-hidden="true">&#9889;</span>
-            <h3>Fire Rebuilds</h3>
+          <div id="svc-panel-engineering" class="service-panel" hidden>
+            <p>Structural and systems engineering coordination that keeps your design buildable, code compliant, and on budget. We partner with trusted engineers and bring their input into the design early, so there are no surprises when the project hits permit review or breaks ground.</p>
+            <ul>
+              <li>Structural engineering coordination</li>
+              <li>Mechanical, electrical, and plumbing (MEP) integration</li>
+              <li>Title 24 and energy-compliance strategy</li>
+              <li>Civil and site engineering for grading/drainage</li>
+              <li>Coordination with geotechnical and fire-protection consultants</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -394,6 +454,6 @@
     <img src="" alt="">
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260406"></script>
 </body>
 </html>

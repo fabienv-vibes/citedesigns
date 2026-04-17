@@ -383,7 +383,7 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(255, 255, 255, 0.55);
   z-index: 0;
 }
 
@@ -392,40 +392,206 @@ img {
   z-index: 1;
 }
 
-.services h2,
+.services h2 {
+  color: var(--color-charcoal);
+}
+
 .services .section-subtitle {
-  color: var(--color-white);
+  color: var(--color-charcoal);
+  opacity: 0.8;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 600px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .services-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
 }
 
 .service-card {
-  background: var(--color-offwhite);
-  padding: 2rem;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
   border-radius: var(--radius);
-  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  font: inherit;
+  text-align: left;
+  box-shadow: var(--shadow-md);
   transition: box-shadow var(--transition), transform var(--transition);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .service-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.service-card:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.service-card-images {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.service-card-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.service-card-image.active {
+  opacity: 1;
+}
+
+.service-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 1.75rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0) 100%);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-white);
 }
 
 .service-card .service-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   color: var(--color-accent);
+  line-height: 1;
 }
 
 .service-card h3 {
+  margin: 0;
   font-size: 1.1rem;
   font-family: var(--font-body);
   font-weight: 600;
+  color: var(--color-white);
+  letter-spacing: 0.3px;
+}
+
+.service-card-chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--color-white);
+  border-bottom: 2px solid var(--color-white);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  justify-self: end;
+  margin-right: 4px;
+  margin-top: -4px;
+}
+
+.service-card[aria-expanded="true"] {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.service-card[aria-expanded="true"] .service-card-chevron {
+  transform: rotate(-135deg);
+  margin-top: 4px;
+}
+
+.service-panels {
+  margin-top: 1.75rem;
+}
+
+.service-panel {
+  background: var(--color-white);
+  color: var(--color-charcoal);
+  border-radius: var(--radius);
+  padding: 2rem 2.25rem;
+  box-shadow: var(--shadow-md);
+  animation: service-panel-open 0.35s ease both;
+}
+
+.service-panel[hidden] {
+  display: none;
+}
+
+.service-panel p {
+  margin-top: 0;
+  font-size: 1.02rem;
+}
+
+.service-panel ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  line-height: 1.75;
+}
+
+.service-panel li {
+  margin-bottom: 0.25rem;
+}
+
+@keyframes service-panel-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .service-card {
+    aspect-ratio: 16 / 10;
+  }
+
+  .service-card-overlay {
+    padding: 1.25rem 1rem 1rem;
+  }
+
+  .service-panel {
+    padding: 1.5rem 1.25rem;
+  }
 }
 
 /* -----------------------------------------------------------------------------
@@ -1197,9 +1363,5 @@ main {
 
   .contact-layout {
     grid-template-columns: 1fr;
-  }
-
-  .services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }

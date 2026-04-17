@@ -195,6 +195,148 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------------------------------
+     6b. Services section - image carousel + accordion (single-open)
+     --------------------------------------------------------------------------- */
+  const serviceCards = document.querySelectorAll(".service-card[data-images]");
+  if (serviceCards.length > 0) {
+    const maxImagesPerCard = 5;
+    const rotationInterval = 4500;
+    const staggerMs = 900;
+
+    function shuffle(arr) {
+      const out = arr.slice();
+      for (let i = out.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [out[i], out[j]] = [out[j], out[i]];
+      }
+      return out;
+    }
+
+    const cardStates = [];
+
+    serviceCards.forEach((card, cardIdx) => {
+      let pool;
+      try {
+        pool = JSON.parse(card.dataset.images || "[]");
+      } catch (err) {
+        pool = [];
+      }
+      const altText = card.dataset.alt || "";
+      const imagesWrap = card.querySelector(".service-card-images");
+      if (!imagesWrap || pool.length === 0) return;
+
+      const picks = shuffle(pool).slice(0, Math.min(maxImagesPerCard, pool.length));
+
+      imagesWrap.innerHTML = "";
+      picks.forEach((src, i) => {
+        const slide = document.createElement("div");
+        slide.className = "service-card-image" + (i === 0 ? " active" : "");
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = i === 0 ? altText : "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        slide.appendChild(img);
+        imagesWrap.appendChild(slide);
+      });
+
+      const slides = imagesWrap.querySelectorAll(".service-card-image");
+      const state = {
+        card,
+        slides,
+        index: 0,
+        timer: null,
+        paused: false,
+      };
+      cardStates.push(state);
+
+      function advance() {
+        if (slides.length <= 1 || state.paused) return;
+        state.index = (state.index + 1) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle("active", i === state.index));
+      }
+
+      function startRotation() {
+        stopRotation();
+        if (slides.length <= 1) return;
+        state.timer = window.setInterval(advance, rotationInterval);
+      }
+
+      function stopRotation() {
+        if (state.timer !== null) {
+          window.clearInterval(state.timer);
+          state.timer = null;
+        }
+      }
+
+      state.start = startRotation;
+      state.stop = stopRotation;
+
+      card.addEventListener("mouseenter", stopRotation);
+      card.addEventListener("mouseleave", () => {
+        if (!state.paused) startRotation();
+      });
+      card.addEventListener("focusin", stopRotation);
+      card.addEventListener("focusout", () => {
+        if (!state.paused) startRotation();
+      });
+
+      window.setTimeout(startRotation, cardIdx * staggerMs);
+    });
+
+    function closePanel(card) {
+      const panelId = card.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      card.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+      const state = cardStates.find((s) => s.card === card);
+      if (state) {
+        state.paused = false;
+        if (state.start) state.start();
+      }
+    }
+
+    function openPanel(card) {
+      cardStates.forEach((s) => {
+        if (s.card !== card && s.card.getAttribute("aria-expanded") === "true") {
+          closePanel(s.card);
+        }
+      });
+      const panelId = card.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      card.setAttribute("aria-expanded", "true");
+      if (panel) panel.hidden = false;
+      const state = cardStates.find((s) => s.card === card);
+      if (state) {
+        state.paused = true;
+        if (state.stop) state.stop();
+      }
+      if (panel) {
+        const isSingleColumn = window.matchMedia("(max-width: 599px)").matches;
+        const panelRect = panel.getBoundingClientRect();
+        const viewportH = window.innerHeight;
+        const offScreen = panelRect.top > viewportH * 0.8 || panelRect.bottom < 0;
+        if (isSingleColumn || offScreen) {
+          window.setTimeout(() => {
+            panel.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 60);
+        }
+      }
+    }
+
+    serviceCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const isOpen = card.getAttribute("aria-expanded") === "true";
+        if (isOpen) {
+          closePanel(card);
+        } else {
+          openPanel(card);
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------------
      7. Per-project work card carousels (auto-rotate, click, pause on hover)
      --------------------------------------------------------------------------- */
   const workCards = document.querySelectorAll(".work-card");
