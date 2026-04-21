@@ -351,6 +351,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
+
+    function closeAnyOpenServicePanel() {
+      cardStates.forEach((s) => {
+        if (s.card.getAttribute("aria-expanded") === "true") {
+          closePanel(s.card);
+        }
+      });
+    }
+
+    document.addEventListener("click", (event) => {
+      const openCard = cardStates.find(
+        (s) => s.card.getAttribute("aria-expanded") === "true"
+      );
+      if (!openCard) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      const panelId = openCard.card.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      const clickedCard = target.closest(".service-card");
+      const clickedPanel = target.closest(".service-panel");
+      if (clickedCard === openCard.card) return;
+      if (panel && clickedPanel === panel) return;
+      closeAnyOpenServicePanel();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeAnyOpenServicePanel();
+      }
+    });
   }
 
   /* ---------------------------------------------------------------------------
