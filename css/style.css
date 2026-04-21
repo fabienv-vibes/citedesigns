@@ -139,6 +139,10 @@ img {
   transition: color var(--transition);
 }
 
+.nav-links a .lowercase-s {
+  text-transform: lowercase;
+}
+
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--color-accent);
