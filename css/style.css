@@ -305,14 +305,6 @@ img {
 }
 
 .hero-tagline {
-  margin: 0.6rem 0 0;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  font-weight: 400;
-  opacity: 0.85;
-}
-
-.hero-tagline {
   font-size: 1.15rem;
   max-width: 600px;
   margin: 1.5rem auto;
@@ -361,11 +353,6 @@ img {
   .hero-subtitle {
     font-size: 1rem;
     letter-spacing: 2px;
-  }
-
-  .hero-tagline {
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
   }
 }
 
