@@ -304,6 +304,11 @@ img {
   margin: 0;
 }
 
+.hero-subtitle-styles {
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+}
+
 .hero-tagline {
   font-size: 1.15rem;
   max-width: 600px;
@@ -353,6 +358,11 @@ img {
   .hero-subtitle {
     font-size: 1rem;
     letter-spacing: 2px;
+  }
+
+  .hero-subtitle-styles {
+    font-size: 0.78rem;
+    letter-spacing: 1px;
   }
 }
 
